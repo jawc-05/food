@@ -1,11 +1,11 @@
 import { GlobalStyle } from './styles/GlobalStyles';
+import Home from './pages/Home';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      {/* As rotas e páginas entrarão aqui depois */}
-      <h1>efood em construção!</h1>
+      <Home />
     </>
   );
 }
