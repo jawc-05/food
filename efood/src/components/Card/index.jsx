@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CardContainer, CardImage, TagsContainer, Tag, CardBody, Header, Description, Button } from './styles';
 import starIcon from '../../assets/estrela.svg'; 
 
-function Card({ image, title, rating, description, tags, buttonText = "Saiba mais" }) {
+    function Card({ image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton }) {
     return (
         <CardContainer>
         <CardImage src={image} alt={title} />
@@ -29,7 +29,12 @@ function Card({ image, title, rating, description, tags, buttonText = "Saiba mai
             
             <Description>{description}</Description>
             
+            {/* Se existir a função onClickButton, vira um botão normal. Se não, continua sendo um Link */}
+            {onClickButton ? (
+            <Button as="button" onClick={onClickButton}>{buttonText}</Button>
+            ) : (
             <Button as={Link} to="/restaurante">{buttonText}</Button>
+            )}
         </CardBody>
         </CardContainer>
     );

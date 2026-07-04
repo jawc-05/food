@@ -3,7 +3,6 @@ import Hero from '../../components/Hero';
 import Card from '../../components/Card';
 import { RestaurantList } from './styles';
 
-// Importando as imagens salvas nos assets
 import sushiImg from '../../assets/sushi.png';
 import pastaImg from '../../assets/pasta.png';
 
