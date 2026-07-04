@@ -31,15 +31,19 @@ import styled from 'styled-components';
     }
     `;
 
-    export const CloseIcon = styled.img`
+        export const CloseIcon = styled.img`
     position: absolute;
     top: 16px;
     right: 16px;
     cursor: pointer;
+    
     width: 16px;
     height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    
+    object-fit: contain;
     `;
-
     export const ModalBody = styled.div`
     display: flex;
     flex-direction: column;

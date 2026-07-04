@@ -1,8 +1,9 @@
-import React, { useState } from 'react'; // Importamos o useState
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
-import { RestaurantHeader, Banner, MenuGrid } from './styles';
 import Cart from '../../components/Cart';
+import Modal from '../../components/Modal'; 
+import { RestaurantHeader, Banner, MenuGrid } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 import pizzaImg from '../../assets/pizza.png';
@@ -10,15 +11,24 @@ import pizzaImg from '../../assets/pizza.png';
     function Restaurant() {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     const menuItems = [
-        { id: 1, title: "Pizza Marguerita", description: "A clássica Marguerita...", image: pizzaImg },
-        { id: 2, title: "Pizza Marguerita", description: "A clássica Marguerita...", image: pizzaImg },
-        { id: 3, title: "Pizza Marguerita", description: "A clássica Marguerita...", image: pizzaImg },
+        { id: 1, title: "Pizza Marguerita", description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!", image: pizzaImg },
+        { id: 2, title: "Pizza Marguerita", description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!", image: pizzaImg },
+        { id: 3, title: "Pizza Marguerita", description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!", image: pizzaImg }
     ];
+
+    const handleOpenModal = (item) => {
+        setSelectedItem(item);
+        setIsModalOpen(true);
+    };
 
     const handleAddToCart = (item) => {
         setCartItems([...cartItems, item]);
+        setIsModalOpen(false);
         setIsCartOpen(true); 
     };
 
@@ -53,8 +63,8 @@ import pizzaImg from '../../assets/pizza.png';
                 image={item.image}
                 title={item.title}
                 description={item.description}
-                buttonText="Adicionar ao carrinho"
-                onClickButton={() => handleAddToCart(item)}
+                buttonText="Mais detalhes" 
+                onClickButton={() => handleOpenModal(item)} 
                 />
             ))}
             </MenuGrid>
@@ -65,6 +75,13 @@ import pizzaImg from '../../assets/pizza.png';
             onClose={() => setIsCartOpen(false)} 
             cartItems={cartItems}
             onRemoveItem={handleRemoveItem}
+        />
+
+        <Modal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            item={selectedItem}
+            onAddToCart={handleAddToCart}
         />
         </>
     );
