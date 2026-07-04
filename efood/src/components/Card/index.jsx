@@ -1,19 +1,9 @@
 import React from 'react';
-import { 
-  CardContainer, 
-  CardImage, 
-  TagsContainer, 
-  Tag, 
-  CardBody, 
-  Header, 
-  Description, 
-  Button 
-} from './styles';
-
-
+import { Link } from 'react-router-dom';
+import { CardContainer, CardImage, TagsContainer, Tag, CardBody, Header, Description, Button } from './styles';
 import starIcon from '../../assets/estrela.svg'; 
 
-function Card({ image, title, rating, description, tags }) {
+function Card({ image, title, rating, description, tags, buttonText = "Saiba mais" }) {
     return (
         <CardContainer>
         <CardImage src={image} alt={title} />
@@ -29,18 +19,20 @@ function Card({ image, title, rating, description, tags }) {
         <CardBody>
             <Header>
             <h3>{title}</h3>
-            <div>
+            {rating && (
+                <div>
                 <span>{rating}</span>
-                <img src={starIcon} alt="Estrela de avaliação" />
-            </div>
+                <img src={starIcon} alt="Estrela" />
+                </div>
+            )}
             </Header>
             
             <Description>{description}</Description>
             
-            <Button>Saiba mais</Button>
+            <Button as={Link} to="/restaurante">{buttonText}</Button>
         </CardBody>
         </CardContainer>
     );
-}
+    }
 
 export default Card;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
 import { RestaurantHeader, Banner, MenuGrid } from './styles';
 
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logo.svg';
 import pizzaImg from '../../assets/pizza.png';
 
     function Restaurant() {
@@ -48,14 +48,13 @@ import pizzaImg from '../../assets/pizza.png';
         <main className="container">
             <MenuGrid>
             {menuItems.map((item) => (
-                <Card
+            <Card
                 key={item.id}
                 image={item.image}
                 title={item.title}
                 description={item.description}
-                rating="" 
-                tags={[]}
-                />
+                buttonText="Adicionar ao carrinho"
+            />
             ))}
             </MenuGrid>
         </main>
