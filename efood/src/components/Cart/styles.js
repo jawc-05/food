@@ -87,3 +87,57 @@ import styled from 'styled-components';
     font-size: 14px;
     cursor: pointer;
     `;
+
+    export const CheckoutContainer = styled.div`
+    color: #FFEBD9;
+
+    h2 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 22px;
+        margin-bottom: 24px;
+    }
+    `;
+
+    export const InputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+
+    label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    input {
+        background-color: #FFEBD9;
+        border: 1px solid #FFEBD9;
+        padding: 8px;
+        color: #4A4A4A;
+        font-size: 14px;
+        font-weight: bold;
+
+        &:focus {
+        outline: none;
+        border: 1px solid #000;
+        }
+    }
+    `;
+
+    export const Row = styled.div`
+    display: flex;
+    gap: 34px;
+    `;
+
+    export const ButtonGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+    `;
