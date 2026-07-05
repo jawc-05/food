@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { CardContainer, CardImage, TagsContainer, Tag, CardBody, Header, Description, Button } from './styles';
 import starIcon from '../../assets/estrela.svg'; 
 
-    function Card({ image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton }) {
+    function Card({ image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton, $isRestaurant }) {
     return (
-        <CardContainer>
+        <CardContainer $isRestaurant={$isRestaurant}>
         <CardImage src={image} alt={title} />
         
         {tags && tags.length > 0 && (
@@ -29,14 +29,13 @@ import starIcon from '../../assets/estrela.svg';
             
             <Description>{description}</Description>
             
-            {/* Se existir a função onClickButton, vira um botão normal. Se não, continua sendo um Link */}
             {onClickButton ? (
             <Button as="button" onClick={onClickButton}>{buttonText}</Button>
             ) : (
-            <Button as={Link} to="/restaurante">{buttonText}</Button>
+            <Button as={Link} to="/restaurante" $isRestaurant={$isRestaurant}>{buttonText}</Button>
             )}
         </CardBody>
-        </CardContainer>
+    </CardContainer>
     );
     }
 

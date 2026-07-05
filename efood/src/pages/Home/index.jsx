@@ -5,6 +5,7 @@ import { RestaurantList } from './styles';
 
 import sushiImg from '../../assets/sushi.png';
 import pastaImg from '../../assets/pasta.png';
+import logoImg from '../../assets/logo.svg'
 
 function Home() {
     const restaurantes = [
@@ -44,7 +45,10 @@ function Home() {
 
     return (
         <div>
-        <Hero />
+        <Hero>
+            <img src={logoImg} alt="efood logo" />
+            <h1>Viva experiências gastronômicas no conforto da sua casa</h1>
+        </Hero>
         
         <main className="container">
             <RestaurantList>

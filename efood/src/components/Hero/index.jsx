@@ -1,14 +1,13 @@
-    import React from 'react';
-    import { HeroContainer } from './styles';
+import React from 'react';
+import { HeroContainer } from './styles';
+import bgImg from '../../assets/hero-bg.svg'; 
 
-    import heroImg from '../../assets/hero1.png'; 
-
-    function Hero() {
+function Hero({ children, $isRestaurant }) {
     return (
-        <HeroContainer>
-        <img src={heroImg} alt="efood - Viva experiências gastronômicas no conforto da sua casa" />
+        <HeroContainer $bgImage={bgImg} $isRestaurant={$isRestaurant}>
+        {children}
         </HeroContainer>
     );
-    }
+}
 
 export default Hero;

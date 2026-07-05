@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
 import Cart from '../../components/Cart';
 import Modal from '../../components/Modal'; 
-import { RestaurantHeader, Banner, MenuGrid } from './styles';
+import Hero from '../../components/Hero';
+
+import {Banner, MenuGrid } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 import pizzaImg from '../../assets/pizza.png';
+import pastaImg from '../../assets/pasta.png'
 
     function Restaurant() {
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -38,17 +41,19 @@ import pizzaImg from '../../assets/pizza.png';
 
     return (
         <>
-        <RestaurantHeader>
-            <Link to="/">Restaurantes</Link>
-            <Link to="/">
-            <img src={logoImg} alt="efood logo" />
-            </Link>
-            <span onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer' }}>
+        <Hero $isRestaurant>
+            <div className="container">
+                <Link to="/">Restaurantes</Link>
+                <Link to="/">
+                    <img src={logoImg} alt="efood logo" />
+                </Link>
+                <span onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer' }}>
                 {cartItems.length} produto(s) no carrinho
-            </span>
-        </RestaurantHeader>
+                </span>
+            </div>
+        </Hero>
 
-        <Banner $bgImage={pizzaImg}>
+        <Banner $bgImage={pastaImg}>
             <div className="container">
             <h2>Italiana</h2>
             <h1>La Dolce Vita Trattoria</h1>
@@ -56,18 +61,19 @@ import pizzaImg from '../../assets/pizza.png';
         </Banner>
 
         <main className="container">
-            <MenuGrid>
+        <MenuGrid>
             {menuItems.map((item) => (
                 <Card
-                key={item.id}
-                image={item.image}
-                title={item.title}
-                description={item.description}
-                buttonText="Mais detalhes" 
-                onClickButton={() => handleOpenModal(item)} 
-                />
-            ))}
-            </MenuGrid>
+                    key={item.id}
+                    image={item.image}
+                    title={item.title}
+                    description={item.description}
+                    buttonText="Mais detalhes"
+                    onClickButton={() => handleOpenModal(item)}
+                    $isRestaurant={true} 
+            />
+        ))}
+        </MenuGrid>
         </main>
 
         <Cart 
