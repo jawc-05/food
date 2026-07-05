@@ -44,7 +44,9 @@ export const HeroContainer = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
     font-size: 18px;
     width: 100%;
     
