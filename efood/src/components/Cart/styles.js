@@ -6,19 +6,24 @@ import styled from 'styled-components';
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); /
-    z-index: 10; /* Fica por cima de tudo */
-    display: flex;
-    justify-content: flex-end; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 100;
     `;
 
     export const Sidebar = styled.aside`
+    position: fixed; 
+    top: 0; 
+    right: 0;
+    z-index: 101;
+
     background-color: #E66767;
     width: 360px;
-    height: 100%;
+    height: 100vh;
     padding: 32px 8px;
+    
     display: flex;
     flex-direction: column;
+    overflow-y: auto; 
     `;
 
     export const CartItem = styled.div`
