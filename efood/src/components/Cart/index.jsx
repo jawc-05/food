@@ -7,7 +7,11 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
 
     if (!isOpen) return null;
 
-    const valorTotal = cartItems.length * 60.90;
+    const valorTotal = cartItems.reduce((acumulador, item) => acumulador + (item.preco || 0), 0);
+
+    const formatPrice = (price) => {
+        return price ? price.toFixed(2).replace('.', ',') : '0,00';
+    };
 
     const handleCloseCart = () => {
         setStep('cart');
@@ -35,7 +39,7 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
                                 <img src={item.image} alt={item.title} />
                                 <div>
                                     <h3>{item.title}</h3>
-                                    <span>R$ 60,90</span>
+                                    <span>R$ {formatPrice(item.preco)}</span>
                                 </div>
                                 <button type="button" onClick={() => onRemoveItem(index)}>
                                     <img src={trashIcon} alt="Remover item" />
@@ -45,7 +49,7 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
 
                         <TotalContainer>
                             <span>Valor total</span>
-                            <span>R$ {valorTotal.toFixed(2).replace('.', ',')}</span>
+                            <span>R$ {formatPrice(valorTotal)}</span>
                         </TotalContainer>
                         {cartItems.length > 0 ? (
                             <CheckoutButton onClick={() => setStep('delivery')}>Continuar com a entrega</CheckoutButton>
@@ -83,7 +87,6 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
                             </Row>
                             <InputGroup>
                                 <label htmlFor="complement">Complemento (opcional)</label>
-                                {/* Este é o único input sem 'required' */}
                                 <input type="text" id="complement" placeholder="Apto, Bloco, etc." />
                             </InputGroup>
 
@@ -98,7 +101,7 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
                 {step === 'payment' && (
                     <CheckoutContainer>
                         <form onSubmit={handlePaymentSubmit}>
-                            <h2>Pagamento - Valor a pagar R$ {valorTotal.toFixed(2).replace('.', ',')}</h2>
+                            <h2>Pagamento - Valor a pagar R$ {formatPrice(valorTotal)}</h2>
                             <InputGroup>
                                 <label htmlFor="cardName">Nome no cartão</label>
                                 <input type="text" id="cardName" placeholder="Ex: JOAO W CUNHA" required />
