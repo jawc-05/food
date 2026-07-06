@@ -6,7 +6,6 @@ import starIcon from '../../assets/estrela.svg';
 function Card({ image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton, $isRestaurant }) {
   return (
     <CardContainer $isRestaurant={$isRestaurant}>
-      
       <CardImage src={image} alt={title} $isRestaurant={$isRestaurant} />
       
       {tags && tags.length > 0 && (
@@ -28,8 +27,8 @@ function Card({ image, title, rating, description, tags, buttonText = "Saiba mai
           )}
         </Header>
         
-        <Description>{description}</Description>
-        
+        <Description $isRestaurant={$isRestaurant}>{description}</Description>    
+            
         {onClickButton ? (
           <Button as="button" onClick={onClickButton} $isRestaurant={$isRestaurant}>{buttonText}</Button>
         ) : (

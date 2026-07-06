@@ -85,6 +85,14 @@ export const Description = styled.p`
   font-size: 14px;
   line-height: 22px;
   margin-bottom: 16px;
+
+  ${(props) => props.$isRestaurant && `
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Trava em no máximo 3 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+    `}
 `;
 
 export const Button = styled.button`
