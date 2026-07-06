@@ -1,41 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'; // Importe os hooks do Redux
+import { open, add } from '../../store/reducers/cart'; // Importe as ações
+
 import Card from '../../components/Card';
 import Cart from '../../components/Cart';
 import Modal from '../../components/Modal'; 
 import Hero from '../../components/Hero';
-
 import { Banner, MenuGrid } from './styles';
-
 import logoImg from '../../assets/logo.svg';
 
 function Restaurant() {
-
     const { id } = useParams();
-
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
+    const dispatch = useDispatch(); 
+    
+    const cartItems = useSelector((state) => state.cart.items); 
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-
 
     const [restauranteData, setRestauranteData] = useState(null);
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+        fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
         .then((res) => res.json())
         .then((data) => {
-        const restauranteAtual = data.find((r) => r.id === Number(id));
-        
-        if (restauranteAtual) {
+            const restauranteAtual = data.find((r) => r.id === Number(id));
+            if (restauranteAtual) {
             setRestauranteData(restauranteAtual);
             setMenuItems(restauranteAtual.cardapio);
-        }
-    })
-    .catch((erro) => console.error('Erro ao carregar a API:', erro));
-}, [id]);
+            }
+        })
+        .catch((erro) => console.error('Erro ao carregar a API:', erro));
+    }, [id]);
 
     const handleOpenModal = (item) => {
         setSelectedItem(item);
@@ -49,13 +47,10 @@ function Restaurant() {
         title: item.nome
         };
 
-        setCartItems([...cartItems, itemFormatadoParaOCarrinho]);
+        dispatch(add(itemFormatadoParaOCarrinho));
         setIsModalOpen(false);
-        setIsCartOpen(true); 
-    };
-
-    const handleRemoveItem = (indexToRemove) => {
-        setCartItems(cartItems.filter((_, index) => index !== indexToRemove));
+        
+        dispatch(open()); 
     };
 
     return (
@@ -66,7 +61,7 @@ function Restaurant() {
             <Link to="/">
                 <img src={logoImg} alt="efood logo" />
             </Link>
-            <span onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer' }}>
+            <span onClick={() => dispatch(open())} style={{ cursor: 'pointer' }}>
                 {cartItems.length} produto(s) no carrinho
             </span>
             </div>
@@ -89,7 +84,7 @@ function Restaurant() {
                 image={item.foto} 
                 title={item.nome} 
                 description={item.descricao}
-                buttonText="Mais Detalhes" 
+                buttonText="Mais detalhes" 
                 onClickButton={() => handleOpenModal(item)}
                 $isRestaurant={true} 
                 />
@@ -97,12 +92,7 @@ function Restaurant() {
             </MenuGrid>
         </main>
 
-        <Cart 
-            isOpen={isCartOpen} 
-            onClose={() => setIsCartOpen(false)} 
-            cartItems={cartItems}
-            onRemoveItem={handleRemoveItem}
-        />
+        <Cart />
 
         <Modal 
             isOpen={isModalOpen}
@@ -112,6 +102,6 @@ function Restaurant() {
         />
         </>
     );
-    }
+}
 
 export default Restaurant;
