@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CardContainer, CardImage, TagsContainer, Tag, CardBody, Header, Description, Button } from './styles';
 import starIcon from '../../assets/estrela.svg'; 
 
-function Card({ image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton, $isRestaurant }) {
+function Card({ id, image, title, rating, description, tags, buttonText = "Saiba mais", onClickButton, $isRestaurant }) {
   return (
     <CardContainer $isRestaurant={$isRestaurant}>
       <CardImage src={image} alt={title} $isRestaurant={$isRestaurant} />
@@ -28,12 +28,11 @@ function Card({ image, title, rating, description, tags, buttonText = "Saiba mai
         </Header>
         
         <Description $isRestaurant={$isRestaurant}>{description}</Description>    
-            
+
         {onClickButton ? (
           <Button as="button" onClick={onClickButton} $isRestaurant={$isRestaurant}>{buttonText}</Button>
         ) : (
-          <Button as={Link} to="/restaurante" $isRestaurant={$isRestaurant}>{buttonText}</Button>
-        )}
+          <Button as={Link} to={`/restaurante/${id}`} $isRestaurant={$isRestaurant}>{buttonText}</Button>        )}
       </CardBody>
     </CardContainer>
   );
