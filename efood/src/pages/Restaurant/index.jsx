@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Card from '../../components/Card';
 import Cart from '../../components/Cart';
 import Modal from '../../components/Modal'; 
@@ -10,26 +10,32 @@ import { Banner, MenuGrid } from './styles';
 import logoImg from '../../assets/logo.svg';
 
 function Restaurant() {
+
+    const { id } = useParams();
+
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    // 1. Novos estados para a API
+
     const [restauranteData, setRestauranteData] = useState(null);
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-        fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
         .then((res) => res.json())
         .then((data) => {
-            const restauranteAtual = data[0]; 
+        const restauranteAtual = data.find((r) => r.id === Number(id));
+        
+        if (restauranteAtual) {
             setRestauranteData(restauranteAtual);
             setMenuItems(restauranteAtual.cardapio);
-        })
-        .catch((erro) => console.error('Erro ao carregar a API:', erro));
-    }, []);
+        }
+    })
+    .catch((erro) => console.error('Erro ao carregar a API:', erro));
+}, [id]);
 
     const handleOpenModal = (item) => {
         setSelectedItem(item);
