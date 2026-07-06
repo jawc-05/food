@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { Overlay, Sidebar, CartItem, TotalContainer, CheckoutButton, CheckoutContainer, InputGroup, Row, ButtonGroup } from './styles';
+import { useDispatch, useSelector } from 'react-redux'; 
+import { close, remove } from '../../store/reducers/cart';
+
 import trashIcon from '../../assets/trash.svg'; 
 
-function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
-    const [step, setStep] = useState('cart'); 
+
+function Cart() {
+    const dispatch = useDispatch();
+
+    const cartItems = useSelector((state) => state.cart.items);
+    const isOpen = useSelector((state) => state.cart.isOpen);
+
+    const [step, setStep] = useState('cart');
 
     if (!isOpen) return null;
 
@@ -15,7 +24,7 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
 
     const handleCloseCart = () => {
         setStep('cart');
-        onClose();
+        dispatch(close());
     };
 
     const handleDeliverySubmit = (e) => {
@@ -26,6 +35,10 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
     const handlePaymentSubmit = (e) => {
         e.preventDefault();
         setStep('success');
+    };
+
+    const handleRemoveItem = (index) => {
+        dispatch(remove(index));
     };
 
     return (
@@ -41,7 +54,7 @@ function Cart({ isOpen, onClose, cartItems, onRemoveItem }) {
                                     <h3>{item.title}</h3>
                                     <span>R$ {formatPrice(item.preco)}</span>
                                 </div>
-                                <button type="button" onClick={() => onRemoveItem(index)}>
+                                <button type="button" onClick={() => handleRemoveItem(index)}>
                                     <img src={trashIcon} alt="Remover item" />
                                 </button>
                             </CartItem>
