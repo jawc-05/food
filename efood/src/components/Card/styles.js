@@ -11,7 +11,9 @@ export const CardContainer = styled.div`
   
   width: ${(props) => (props.$isRestaurant ? '320px' : '100%')};
   height: ${(props) => (props.$isRestaurant ? '338px' : '100%')};
-  
+
+  align-self: ${(props) => (props.$isRestaurant ? 'auto' : 'flex-start')};
+
   display: flex;
   flex-direction: column;
 `;
@@ -106,7 +108,7 @@ export const Button = styled.button`
   
   box-sizing: border-box;
   
-  width: ${(props) => (props.$isRestaurant ? '100%' : 'auto')};
+  width: ${(props) => (props.$isRestaurant ? '100%' : 'fit-content')};
   height: ${(props) => (props.$isRestaurant ? '24px' : 'auto')};
   
   display: ${(props) => (props.$isRestaurant ? 'flex' : 'inline-block')};
