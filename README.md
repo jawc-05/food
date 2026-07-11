@@ -168,5 +168,3 @@ Contribuições são bem-vindas! Sinta-se livre para abrir issues e pull request
 5. Abra um Pull Request
 
 ---
-
-**Desenvolvido com ❤️ usando React e Vite**
